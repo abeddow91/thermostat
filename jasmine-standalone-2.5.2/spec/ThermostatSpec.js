@@ -21,17 +21,29 @@ describe("Thermostat", function(){
   });
 
   it('returns the temperature', function(){
-    expect(thermostat.printTemp()).toEqual("the new temperature is "+thermostat._temperature);
-  });
-
-  it('has a minimum temperature of 10', function() {
-    expect(thermostat._minimum).toEqual(10);
+    expect(thermostat._currentTemp()).toEqual(thermostat._temperature);
   });
 
   it('won\'t go below the minimum', function() {
     expect(thermostat.down(11)).toEqual('you can\'t go below '+thermostat._minimum);
   });
+  it('has a maximum temperature of 25 degrees in power saving mode', function(){
+    thermostat._temperature = 25;
+    expect(function() {
+      thermostat.up(5)}).toThrow("maximum temperature reached");
+      expect(thermostat._currentTemp()).not.toBe(30);
+  });
 
+  it('resets the temperature to 20', function() {
+    thermostat._temperature = 27;
+    thermostat.reset();
+    expect(thermostat._currentTemp()).toEqual(20);
+  });
 
+  it('has low usage when temperature below 18', function() {
+    thermostat._temperature = 16;
+    thermostat._energyUsage();
+    expect(thermostat.currentEnergyUsage()).toEqual("low usage");
+  });
 
 });
