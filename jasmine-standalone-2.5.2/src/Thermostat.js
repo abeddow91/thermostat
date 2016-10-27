@@ -60,18 +60,3 @@ Thermostat.prototype.currentEnergyUsage = function() {
 Thermostat.prototype._currentTemp = function() {
   return this._temperature;
 };
-
-// function Player() {
-// }
-// Player.prototype.play = function(song) {
-//   this.currentlyPlayingSong = song;
-//   this.isPlaying = true;
-// };
-//
-//
-//
-//
-// Song.prototype.persistFavoriteStatus = function(value) {
-//   // something complicated
-//   throw new Error("not yet implemented");
-// };
