@@ -11,12 +11,12 @@ describe("Thermostat", function(){
   });
 
   it('allows you to increase the temperature with up function', function() {
-    thermostat.up(20)
+    thermostat.up()
     expect(thermostat._temperature).toBeGreaterThan(20);
   });
 
   it('allows you to decrease the temperature with down function', function(){
-    thermostat.down(10)
+    thermostat.down()
     expect(thermostat._temperature).toBeLessThan(20);
   });
 
@@ -25,13 +25,17 @@ describe("Thermostat", function(){
   });
 
   it('won\'t go below the minimum', function() {
-    expect(thermostat.down(11)).toEqual('you can\'t go below '+thermostat._minimum);
+    thermostat._temperature = 10;
+    expect(function() {
+      thermostat.down()}).toThrow("minimum temperature reached");
+      expect(thermostat._currentTemp()).not.toBe(9);
   });
+
   it('has a maximum temperature of 25 degrees in power saving mode', function(){
     thermostat._temperature = 25;
     expect(function() {
-      thermostat.up(5)}).toThrow("maximum temperature reached");
-      expect(thermostat._currentTemp()).not.toBe(30);
+      thermostat.up()}).toThrow("maximum temperature reached");
+      expect(thermostat._currentTemp()).not.toBe(26);
   });
 
   it('resets the temperature to 20', function() {

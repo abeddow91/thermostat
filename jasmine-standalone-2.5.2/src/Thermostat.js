@@ -1,6 +1,6 @@
 function Thermostat() {
   this.INITIAL_TEMPERATURE = 20
-  this.MINUMUM = 10
+  this.MINIMUM = 10
   this.MAXIMUM_SAVING_TEMP = 25
   this.MAXIMIM_TEMP = 32
   this.energyUsageMode = "medium usage"
@@ -9,19 +9,18 @@ function Thermostat() {
   this.powerSavingMode = true
 }
 
-Thermostat.prototype.up = function(increase) {
+Thermostat.prototype.up = function() {
   if (this._temperature === this._currentMaximum) {
     throw "maximum temperature reached";
   }
-  this._temperature += increase;
+  this._temperature++;
 };
 
-Thermostat.prototype.down = function(decrease) {
-  if(this._temperature - decrease < this.MINUMUM) {
-    return('you can\'t go below ' + this.MINIMUM);
-  } else {
-    this._temperature -= decrease;
-  };
+Thermostat.prototype.down = function() {
+  if (this._temperature === this.MINIMUM) {
+    throw "minimum temperature reached";
+  }
+    this._temperature--;
 };
 
 
